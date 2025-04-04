@@ -911,6 +911,30 @@
                 /* Even smaller on mobile */
             }
         }
+
+        /* Hero image animations */
+        .hero-image-container {
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 25px rgba(79, 70, 229, 0.4));
+            transition: filter 0.3s ease;
+        }
+
+        .hero-image-container:hover {
+            filter: drop-shadow(0 0 30px rgba(79, 70, 229, 0.6));
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
     </style>
 </head>
 
@@ -1018,7 +1042,7 @@
                             </div>
                             <!-- Right side with image -->
                             <div
-                                class="relative h-100 w-100 rounded-lg overflow-hidden flex items-center justify-center">
+                                class="relative h-100 w-100 rounded-lg overflow-hidden flex items-center justify-center hero-image-container">
                                 <img src="images/mine.png" alt="Profile"
                                     class="h-100px w-150px object-contain rounded-lg animate-zoom-fade-in">
                             </div>
@@ -1051,7 +1075,7 @@
                                     <span class="text-gray-300 mt-2">JavaScript</span>
                                 </div>
                                 <div class="skill-item">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg"
+                                    <img src="images/express (1).png"
                                         class="w-16 h-16" alt="Express.js">
                                     <span class="text-gray-300 mt-2">Express.js</span>
                                 </div>
@@ -1066,7 +1090,7 @@
                                     <span class="text-gray-300 mt-2">Bootstrap</span>
                                 </div>
                                 <div class="skill-item">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg"
+                                    <img src="images/tailwind.png"
                                         class="w-16 h-16" alt="Tailwind CSS">
                                     <span class="text-gray-300 mt-2">Tailwind CSS</span>
                                 </div>
@@ -1288,7 +1312,7 @@
                                         <div class="flex space-x-4 justify-center">
                                             <a href="https://imagify-frontend-ssxx.onrender.com/" target="_blank"
                                                 class="flex items-center space-x-2 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors duration-300">
-                                                <img src="images/p1.png" alt="Live Demo" class="w-5 h-5">
+                                                <img src="images/demo.png" alt="Live Demo" class="w-5 h-5">
                                                 <span>Live Demo</span>
                                             </a>
                                             <a href="https://github.com/vishakh-k/imagify" target="_blank"
@@ -1304,19 +1328,21 @@
                             <!-- Project Card 2 -->
                             <div
                                 class="project-card group relative bg-gray-800 rounded-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                                <img src="project2.jpg" alt="Project 2"
+                                <img src="images/p2.png" alt="Portfolio Website"
                                     class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110">
                                 <div
                                     class="project-overlay absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center">
                                     <div class="space-y-4 text-center">
-                                        <h3 class="text-xl text-white font-bold">Project 2</h3>
+                                        <h3 class="text-xl text-white font-bold">Portfolio Website</h3>
+                                        <p class="text-gray-300 text-sm">Modern Portfolio using HTML, Tailwind CSS &
+                                            JavaScript</p>
                                         <div class="flex space-x-4">
                                             <a href="#"
                                                 class="flex items-center space-x-2 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors duration-300">
                                                 <img src="images/demo.png" alt="Live Demo" class="w-5 h-5">
                                                 <span>Live Demo</span>
                                             </a>
-                                            <a href="#"
+                                            <a href="https://github.com/vishakh-k/-vk-"
                                                 class="flex items-center space-x-2 px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 transition-colors duration-300">
                                                 <img src="images/github.png" alt="GitHub" class="w-5 h-5">
                                                 <span>GitHub</span>
@@ -1329,14 +1355,16 @@
                             <!-- Project Card 3 -->
                             <div
                                 class="project-card group relative bg-gray-800 rounded-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                                <img src="project3.jpg" alt="Project 3"
+                                <img src="images/p3.png" alt="Amazon Clone"
                                     class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110">
                                 <div
                                     class="project-overlay absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center">
                                     <div class="space-y-4 text-center">
-                                        <h3 class="text-xl text-white font-bold">Project 3</h3>
+                                        <h3 class="text-xl text-white font-bold">Amazon Clone</h3>
+                                        <p class="text-gray-300 text-sm">E-commerce Website Clone using HTML and CSS
+                                        </p>
                                         <div class="flex space-x-4">
-                                            <a href="#"
+                                            <a href="https://github.com/vishakh-k/Amazone-Clone"
                                                 class="flex items-center space-x-2 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors duration-300">
                                                 <img src="images/demo.png" alt="Live Demo" class="w-5 h-5">
                                                 <span>Live Demo</span>

@@ -122,6 +122,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Start the animation
   typeText(texts[currentIndex]);
+
+  // Initialize particle effects
+  createParticles();
+  new ParticleEffect();
+
+  // Contact form handler
+  const contactForm = document.querySelector("form");
+  if (contactForm) {
+    contactForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message").value;
+
+      const mailtoLink = `mailto:vishakhkt.2003@gmail.com?subject=Portfolio Contact from ${name}&body=${encodeURIComponent(
+        `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+      )}`;
+      window.location.href = mailtoLink;
+      contactForm.reset();
+    });
+  }
+});
+
+// Loading screen handler
+window.addEventListener("load", () => {
+  const loadingScreen = document.getElementById("loading-screen");
+  const contentWrapper = document.querySelector(".content-wrapper");
+
+  setTimeout(() => {
+    loadingScreen.style.opacity = "0";
+    loadingScreen.style.transition = "opacity 0.5s ease-in-out";
+    contentWrapper.classList.add("loaded");
+    setTimeout(() => {
+      loadingScreen.style.display = "none";
+    }, 500);
+  }, 2000);
 });
 
 // Create particles
@@ -220,85 +256,31 @@ class ParticleEffect {
   }
 }
 
-// Initialize particle effect
-document.addEventListener("DOMContentLoaded", () => {
-  new ParticleEffect();
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-  const contactForm = document.querySelector("form");
-
-  contactForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const message = document.getElementById("message").value;
-
-    const mailtoLink = `mailto:vishakhkt.2003@gmail.com?subject=Portfolio Contact from ${name}&body=${encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-    )}`;
-    window.location.href = mailtoLink;
-
-    // Clear the form
-    contactForm.reset();
-  });
-});
-
-// Loading screen handler
-window.addEventListener("load", () => {
-  const loadingScreen = document.getElementById("loading-screen");
-  const contentWrapper = document.querySelector(".content-wrapper");
-
-  // Simulate loading time (you can remove this setTimeout if you want it to load instantly)
-  setTimeout(() => {
-    // Hide loading screen
-    loadingScreen.style.opacity = "0";
-    loadingScreen.style.transition = "opacity 0.5s ease-in-out";
-
-    // Show content
-    contentWrapper.classList.add("loaded");
-
-    // Remove loading screen after fade out
-    setTimeout(() => {
-      loadingScreen.style.display = "none";
-    }, 500);
-  }, 2000); // 2 seconds loading time
-});
-
 // Mobile menu functionality
-document.addEventListener("DOMContentLoaded", function () {
+function initMobileMenu() {
   const menuButton = document.getElementById("menu-button");
   const mobileMenu = document.getElementById("mobile-menu");
   let isMenuOpen = false;
 
-  // Toggle menu function
   function toggleMenu() {
     isMenuOpen = !isMenuOpen;
     menuButton.classList.toggle("active");
 
     if (isMenuOpen) {
       mobileMenu.classList.remove("hidden");
-      // Trigger animation after unhiding
-      requestAnimationFrame(() => {
-        mobileMenu.classList.add("show");
-      });
+      requestAnimationFrame(() => mobileMenu.classList.add("show"));
     } else {
       mobileMenu.classList.remove("show");
-      // Wait for animation to finish before hiding
-      setTimeout(() => {
-        mobileMenu.classList.add("hidden");
-      }, 300);
+      setTimeout(() => mobileMenu.classList.add("hidden"), 300);
     }
   }
 
-  // Menu button click handler
+  // Event listeners for mobile menu
   menuButton.addEventListener("click", (e) => {
     e.stopPropagation();
     toggleMenu();
   });
 
-  // Close menu when clicking outside
   document.addEventListener("click", (e) => {
     if (
       isMenuOpen &&
@@ -309,106 +291,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Close menu when clicking a link
   const mobileLinks = mobileMenu.querySelectorAll("a");
   mobileLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      toggleMenu();
-    });
+    link.addEventListener("click", toggleMenu);
   });
 
-  // Close menu on resize (if desktop breakpoint is reached)
   window.addEventListener("resize", () => {
     if (window.innerWidth >= 768 && isMenuOpen) {
-      // 768px is Tailwind's md breakpoint
       toggleMenu();
     }
   });
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  // ...existing code for other functionality...
-});
-
-function eraseText() {
-  const text = changingText.textContent;
-  if (text.length > 0) {
-    changingText.textContent = text.substring(0, text.length - 1);
-    setTimeout(eraseText, 50);
-  } else {
-    currentWordIndex = (currentWordIndex + 1) % words.length;
-    setTimeout(() => typeWriter(words[currentWordIndex], 0), 500);
-  }
 }
 
-// Start the typing animation
-setTimeout(() => typeWriter(words[0], 0), 2500);
-
-// Loading screen handler
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    document.getElementById("loading-screen").style.opacity = "0";
-    document.getElementById("loading-screen").style.visibility = "hidden";
-    document.querySelector(".content-wrapper").classList.add("loaded");
-  }, 2000);
-});
-
-// Mobile menu handler
-const menuButton = document.getElementById("menu-button");
-const mobileMenu = document.getElementById("mobile-menu");
-
-menuButton.addEventListener("click", () => {
-  mobileMenu.classList.toggle("hidden");
-  mobileMenu.classList.toggle("show");
-  menuButton.classList.toggle("active");
-});
-
-// Close mobile menu when clicking a link
-const mobileLinks = mobileMenu.querySelectorAll("a");
-mobileLinks.forEach((link) => {
-  link.addEventListener("click", () => {
-    mobileMenu.classList.remove("show");
-    mobileMenu.classList.add("hidden");
-    menuButton.classList.remove("active");
-  });
-});
-
-// Typing text animation
-const texts = ["A Web Developer", "A Problem Solver", "A Tech Enthusiast"];
-let textIndex = 0;
-let charIndex = 0;
-const changingText = document.getElementById("changing-text");
-
-function type() {
-  if (charIndex < texts[textIndex].length) {
-    changingText.textContent += texts[textIndex].charAt(charIndex);
-    charIndex++;
-    setTimeout(type, 100);
-  } else {
-    setTimeout(erase, 2000);
-  }
-}
-
-function erase() {
-  if (charIndex > 0) {
-    changingText.textContent = texts[textIndex].substring(0, charIndex - 1);
-    charIndex--;
-    setTimeout(erase, 50);
-  } else {
-    textIndex = (textIndex + 1) % texts.length;
-    setTimeout(type, 500);
-  }
-}
-
-// Start the typing animation
-type();
-
-// Smooth scroll for navigation links
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-    document.querySelector(this.getAttribute("href")).scrollIntoView({
-      behavior: "smooth",
-    });
-  });
-});
+// Initialize mobile menu
+document.addEventListener("DOMContentLoaded", initMobileMenu);
