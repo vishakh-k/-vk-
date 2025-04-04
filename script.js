@@ -343,3 +343,72 @@ function eraseText() {
 
 // Start the typing animation
 setTimeout(() => typeWriter(words[0], 0), 2500);
+
+// Loading screen handler
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.getElementById("loading-screen").style.opacity = "0";
+    document.getElementById("loading-screen").style.visibility = "hidden";
+    document.querySelector(".content-wrapper").classList.add("loaded");
+  }, 2000);
+});
+
+// Mobile menu handler
+const menuButton = document.getElementById("menu-button");
+const mobileMenu = document.getElementById("mobile-menu");
+
+menuButton.addEventListener("click", () => {
+  mobileMenu.classList.toggle("hidden");
+  mobileMenu.classList.toggle("show");
+  menuButton.classList.toggle("active");
+});
+
+// Close mobile menu when clicking a link
+const mobileLinks = mobileMenu.querySelectorAll("a");
+mobileLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    mobileMenu.classList.remove("show");
+    mobileMenu.classList.add("hidden");
+    menuButton.classList.remove("active");
+  });
+});
+
+// Typing text animation
+const texts = ["A Web Developer", "A Problem Solver", "A Tech Enthusiast"];
+let textIndex = 0;
+let charIndex = 0;
+const changingText = document.getElementById("changing-text");
+
+function type() {
+  if (charIndex < texts[textIndex].length) {
+    changingText.textContent += texts[textIndex].charAt(charIndex);
+    charIndex++;
+    setTimeout(type, 100);
+  } else {
+    setTimeout(erase, 2000);
+  }
+}
+
+function erase() {
+  if (charIndex > 0) {
+    changingText.textContent = texts[textIndex].substring(0, charIndex - 1);
+    charIndex--;
+    setTimeout(erase, 50);
+  } else {
+    textIndex = (textIndex + 1) % texts.length;
+    setTimeout(type, 500);
+  }
+}
+
+// Start the typing animation
+type();
+
+// Smooth scroll for navigation links
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+    document.querySelector(this.getAttribute("href")).scrollIntoView({
+      behavior: "smooth",
+    });
+  });
+});
